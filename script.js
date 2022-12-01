@@ -11,13 +11,10 @@ const keypad = document.querySelector(".keypad")
 const numKey = keypad.querySelectorAll(".num-key")
 
 const ACBtn = document.querySelector(`.secondary-operators[data-key ="allClear"]`)
+const CBtn = document.querySelector(`.secondary-operators[data-key ="clear"]`)
 
 
 // FUNCTIONS
-
-function printOnDisplay(content) {
-    display.innerText = content
-}
 
 function division(a, b) {
     return a / b;
@@ -41,14 +38,27 @@ function negation(data) {
 
 // Secondary Functions
 
+function printOnDisplay(content) {
+    display.innerText = content
+}
+
 function allClear() {
     firstNum = "0"
     printOnDisplay(firstNum)
-    console.log("delete all")
+    // console.log("delete all")
 }
 
 function clear() {
-    console.log("delete one digit")
+    if (firstNum == "0") return;
+
+    if (firstNum.length == 1) {
+        firstNum = "0";
+    } else {
+        const lastDigitDeletedNum = firstNum.slice(0, -1);
+        firstNum = lastDigitDeletedNum;
+    }
+    printOnDisplay(firstNum);
+    // console.log("delete")
 }
 
 
@@ -99,10 +109,16 @@ numKey.forEach(element => {
 
 ACBtn.addEventListener("click", () => {
     allClear()
-    console.log("Delete")
+})
+
+CBtn.addEventListener("click", () => {
+    clear()
 })
 
 window.onload = () => {
     console.log("page is fully loaded");
     printOnDisplay(firstNum)
 };
+
+
+
