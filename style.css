@@ -9,14 +9,14 @@
   font-family: "Roboto", sans-serif;
 }
 
-#container {
+.container {
   width: 350px;
   margin: auto;
   padding: 4rem 0;
   background-color: black;
 }
 
-#display {
+.display {
   text-align: right;
   padding: 15px 8px;
   margin: 10px 0;
