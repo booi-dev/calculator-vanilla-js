@@ -23,7 +23,7 @@
   font-size: 5rem;
 }
 
-.num-pad {
+.keypad {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -33,28 +33,11 @@
   text-align: center;
 }
 
-.num-pad > * {
+.keypad > * {
   background-color: rgb(58, 58, 58);
   width: 80px;
   padding: 20px 0;
   border-radius: 50%;
-}
-
-.zero-dot-equal-keypad {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 10px;
-  font-size: 30px;
-}
-
-.zero-dot-equal-keypad > * {
-  background-color: rgb(58, 58, 58);
-  width: 80px;
-  padding: 20px 0;
-  border-radius: 50%;
-  text-align: center;
 }
 
 #zero-btn {
