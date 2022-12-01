@@ -1,0 +1,78 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap");
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  background-color: black;
+  color: white;
+  font-family: "Roboto", sans-serif;
+}
+
+#container {
+  width: 350px;
+  margin: auto;
+  padding: 4rem 0;
+  background-color: black;
+}
+
+#display {
+  text-align: right;
+  padding: 15px 8px;
+  margin: 10px 0;
+  font-size: 5rem;
+}
+
+.num-pad {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  font-size: 30px;
+  text-align: center;
+}
+
+.num-pad > * {
+  background-color: rgb(58, 58, 58);
+  width: 80px;
+  padding: 20px 0;
+  border-radius: 50%;
+}
+
+.zero-dot-equal-keypad {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  font-size: 30px;
+}
+
+.zero-dot-equal-keypad > * {
+  background-color: rgb(58, 58, 58);
+  width: 80px;
+  padding: 20px 0;
+  border-radius: 50%;
+  text-align: center;
+}
+
+#zero-btn {
+  background-color: rgb(58, 58, 58);
+  width: 170px;
+  padding: 20px 0;
+  border-radius: 38px;
+}
+
+.primary-operators {
+  background-color: hsl(39, 90%, 40%);
+  font-weight: 600;
+}
+
+.secondary-operators {
+  background-color: rgb(153, 153, 153);
+  color: black;
+  font-size: 26px;
+  padding: 22px 0;
+  font-weight: 600;
+}
