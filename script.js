@@ -8,6 +8,7 @@ let operator = "none"
 
 const display = document.querySelector(".display");
 const display2 = document.querySelector(".display2");
+const operatorDisplay = document.querySelector(".operatorDisplay");
 
 const keypad = document.querySelector(".keypad");
 const numKey = keypad.querySelectorAll(".num-key");
@@ -40,7 +41,9 @@ function negation(data) {
     return data * -1;
 }
 
-// Secondary Functions
+// SECONDARY FUNCTIONS
+
+// UPDATE DISPLAY FUNCTIONS
 
 function updateDisplay(content) {
     if (content.length > 10) return
@@ -61,6 +64,21 @@ function updateDisplay(content) {
 function updateDisplay2(content) {
     display2.innerText = content
 }
+
+operatorDisplay.innerText = "NA";
+
+function updateOperatorDisplay(operator) {
+    if (operator === "division") {
+        operatorDisplay.innerText = "÷"
+    } else if (operator === "multiply") {
+        operatorDisplay.innerText = "x"
+    } else if (operator === "subtraction") {
+        operatorDisplay.innerText = "-"
+    } else if (operator === "addition") {
+        operatorDisplay.innerText = "×"
+    }
+}
+
 
 function allClear() {
     firstNum = "0"
@@ -85,8 +103,18 @@ function clear() {
 
 function updateNumber(e) {
     console.log(firstNum, secondNum, operator)
-    const updatedFirstNum = updateFirstNum(e.target.dataset.num)
-    updateDisplay(updatedFirstNum)
+
+    let updatedFirstNum;
+    let updatedSecondNum;
+
+    if (operator != "none") {
+        updatedSecondNum = updateSecondNum(e.target.dataset.num)
+        updateDisplay2(updatedSecondNum)
+
+    } else {
+        updatedFirstNum = updateFirstNum(e.target.dataset.num)
+        updateDisplay(updatedFirstNum)
+    }
 }
 
 function updateFirstNum(params) {
@@ -96,11 +124,15 @@ function updateFirstNum(params) {
 }
 
 function updateSecondNum(params) {
-    secondNum += params;
+    if (secondNum == 0) {
+        return secondNum = params;
+    } else return secondNum += params;
 }
 
 function updateOperator(e) {
-    operator = e.target.dataset.key
+    operator = e.target.dataset.key;
+    updateOperatorDisplay(operator)
+    console.log("operator updated: ", e.target.dataset.key)
 }
 
 
