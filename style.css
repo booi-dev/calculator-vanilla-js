@@ -17,10 +17,27 @@
 }
 
 .display {
-  text-align: right;
+  display: flex;
+  /* text-align: right; */
+  justify-content: right;
+  align-items: flex-end;
+  height: 120px;
   padding: 15px 8px;
   margin: 10px 0;
   font-size: 5rem;
+  /* text-align: center; */
+}
+
+.reduceDisplayFontx1 {
+  font-size: 4.5rem;
+}
+
+.reduceDisplayFontx2 {
+  font-size: 4rem;
+}
+
+.reduceDisplayFontx3 {
+  font-size: 3.5rem;
 }
 
 .keypad {
@@ -57,5 +74,10 @@
   color: black;
   font-size: 26px;
   padding: 22px 0;
+  font-weight: 600;
+}
+
+.equals-operators {
+  background-color: hsl(14, 80%, 50%);
   font-weight: 600;
 }

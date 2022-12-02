@@ -2,6 +2,7 @@
 
 let firstNum = "0";
 let secondNum = "0";
+let operator = ""
 
 // SELECTORS
 
@@ -13,6 +14,8 @@ const numKey = keypad.querySelectorAll(".num-key")
 const ACBtn = document.querySelector(`.secondary-operators[data-key ="allClear"]`)
 const CBtn = document.querySelector(`.secondary-operators[data-key ="clear"]`)
 
+const primaryOperatorBtn = document.querySelectorAll(`.primary-operators`)
+const equalsBtn = document.querySelector(`.equals-operators`)
 
 // FUNCTIONS
 
@@ -39,6 +42,18 @@ function negation(data) {
 // Secondary Functions
 
 function printOnDisplay(content) {
+    if (content.length > 10) return
+    if (content.length == 8) {
+        display.classList.add("reduceDisplayFontx1")
+        display.classList.remove("reduceDisplayFontx2", "reduceDisplayFontx3")
+    } else if (content.length == 9) {
+        display.classList.add("reduceDisplayFontx2")
+        display.classList.remove("reduceDisplayFontx1", "reduceDisplayFontx3")
+    } else if (content.length == 10) {
+        display.classList.add("reduceDisplayFontx3")
+        display.classList.remove("reduceDisplayFontx1", "reduceDisplayFontx2")
+    } else display.classList.remove("reduceDisplayFontx1", "reduceDisplayFontx2", "reduceDisplayFontx3")
+
     display.innerText = content
 }
 
@@ -61,7 +76,6 @@ function clear() {
     // console.log("delete")
 }
 
-
 function updateDisplay(e) {
     const data = getDataSet(e);
     // console.log("data num", data.num)
@@ -77,7 +91,6 @@ function getDataSet(e) {
 }
 
 function updateFirstNum(params) {
-    // console.log("update first number", firstNum, params)
     if (firstNum == 0) {
         return firstNum = params;
     } else return firstNum += params;
@@ -86,6 +99,11 @@ function updateFirstNum(params) {
 function updateSecondNum(params) {
     secondNum += params;
 }
+
+function updateOperator(e) {
+    operator = e.target.dataset.key
+}
+
 
 function operate(a, b, operator) {
     let result;
@@ -107,6 +125,10 @@ numKey.forEach(element => {
     element.addEventListener("click", updateDisplay)
 })
 
+primaryOperatorBtn.forEach(element => {
+    element.addEventListener("click", updateOperator)
+})
+
 ACBtn.addEventListener("click", () => {
     allClear()
 })
@@ -115,10 +137,23 @@ CBtn.addEventListener("click", () => {
     clear()
 })
 
+equalsBtn.addEventListener("click", () => {
+    console.log("equal btn press")
+})
+
+
+// APP INITIALIZATION
+
 window.onload = () => {
     console.log("page is fully loaded");
     printOnDisplay(firstNum)
 };
 
 
+
+// testing usages
+
+function cosoleLogging(e) {
+    console.log(e.target.dataset.key)
+}
 
