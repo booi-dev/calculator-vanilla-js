@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap");
+/* @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300&display=swap"); */
 
 * {
   box-sizing: border-box;
@@ -16,22 +16,12 @@
   background-color: black;
 }
 
-.display {
-  display: flex;
-  justify-content: right;
-  align-items: flex-end;
-  height: 100px;
-  margin-bottom: 20px;
-  font-size: 5rem;
-}
-
 .display2 {
   display: flex;
   justify-content: right;
-  margin-right: 4px;
 }
 
-.container-display-2 {
+.container-secondary-display {
   display: flex;
   justify-content: right;
   align-items: flex-end;
@@ -39,6 +29,31 @@
   height: 10px;
   margin-bottom: 10px;
   text-align: center;
+}
+
+.operatorDisplay {
+  margin: 0 4px;
+}
+
+.container-primay-display {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+.container-primay-display .equal-symbol {
+  margin-right: auto;
+  font-size: 1.5rem;
+  display: hide;
+}
+
+.display {
+  display: flex;
+  justify-content: right;
+  align-items: flex-end;
+  height: 100px;
+  margin-bottom: 20px;
+  font-size: 5rem;
 }
 
 .reduceDisplayFontx1 {
