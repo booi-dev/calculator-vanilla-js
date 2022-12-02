@@ -12,20 +12,25 @@
 .container {
   width: 350px;
   margin: auto;
-  padding: 4rem 0;
+  padding: 5rem 0;
   background-color: black;
 }
 
 .display {
   display: flex;
-  /* text-align: right; */
   justify-content: right;
   align-items: flex-end;
-  height: 120px;
-  padding: 15px 8px;
-  margin: 10px 0;
+  height: 100px;
+  margin-bottom: 20px;
   font-size: 5rem;
-  /* text-align: center; */
+}
+
+.display2 {
+  display: flex;
+  justify-content: right;
+  align-items: flex-end;
+  font-size: 1.5rem;
+  margin-right: 4px;
 }
 
 .reduceDisplayFontx1 {

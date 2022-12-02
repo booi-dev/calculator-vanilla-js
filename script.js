@@ -2,20 +2,21 @@
 
 let firstNum = "0";
 let secondNum = "0";
-let operator = ""
+let operator = "none"
 
 // SELECTORS
 
-const display = document.querySelector(".display")
+const display = document.querySelector(".display");
+const display2 = document.querySelector(".display2");
 
-const keypad = document.querySelector(".keypad")
-const numKey = keypad.querySelectorAll(".num-key")
+const keypad = document.querySelector(".keypad");
+const numKey = keypad.querySelectorAll(".num-key");
 
-const ACBtn = document.querySelector(`.secondary-operators[data-key ="allClear"]`)
-const CBtn = document.querySelector(`.secondary-operators[data-key ="clear"]`)
+const ACBtn = document.querySelector(`.secondary-operators[data-key ="allClear"]`);
+const CBtn = document.querySelector(`.secondary-operators[data-key ="clear"]`);
 
-const primaryOperatorBtn = document.querySelectorAll(`.primary-operators`)
-const equalsBtn = document.querySelector(`.equals-operators`)
+const primaryOperatorBtn = document.querySelectorAll(`.primary-operators`);
+const equalsBtn = document.querySelector(`.equals-operators`);
 
 // FUNCTIONS
 
@@ -57,6 +58,10 @@ function updateDisplay(content) {
     display.innerText = content
 }
 
+function updateDisplay2(content) {
+    display2.innerText = content
+}
+
 function allClear() {
     firstNum = "0"
     updateDisplay(firstNum)
@@ -73,18 +78,16 @@ function clear() {
         firstNum = lastDigitDeletedNum;
     }
     updateDisplay(firstNum);
-    // console.log("delete")
 }
 
 
 // UPDATE NUMBER FUNCTIONS
 
 function updateNumber(e) {
-    // console.log(e.target.dataset.num)
+    console.log(firstNum, secondNum, operator)
     const updatedFirstNum = updateFirstNum(e.target.dataset.num)
     updateDisplay(updatedFirstNum)
 }
-
 
 function updateFirstNum(params) {
     if (firstNum == 0) {
