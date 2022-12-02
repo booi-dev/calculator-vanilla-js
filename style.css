@@ -78,12 +78,12 @@
 }
 
 .primary-operators {
-  background-color: hsl(39, 90%, 40%);
+  background-color: hsl(40, 90%, 40%);
   font-weight: 600;
 }
 
 .secondary-operators {
-  background-color: rgb(153, 153, 153);
+  background-color: hsl(0, 0%, 50%);
   color: black;
   font-size: 26px;
   padding: 22px 0;
@@ -91,6 +91,11 @@
 }
 
 .equals-operators {
-  background-color: hsl(14, 80%, 50%);
+  background-color: hsl(0, 0%, 100%);
   font-weight: 600;
+  color: black;
+}
+
+.AC {
+  background-color: hsl(0, 100%, 50%);
 }
