@@ -41,7 +41,7 @@ function negation(data) {
 
 // Secondary Functions
 
-function printOnDisplay(content) {
+function updateDisplay(content) {
     if (content.length > 10) return
     if (content.length == 8) {
         display.classList.add("reduceDisplayFontx1")
@@ -59,7 +59,7 @@ function printOnDisplay(content) {
 
 function allClear() {
     firstNum = "0"
-    printOnDisplay(firstNum)
+    updateDisplay(firstNum)
     // console.log("delete all")
 }
 
@@ -72,23 +72,19 @@ function clear() {
         const lastDigitDeletedNum = firstNum.slice(0, -1);
         firstNum = lastDigitDeletedNum;
     }
-    printOnDisplay(firstNum);
+    updateDisplay(firstNum);
     // console.log("delete")
 }
 
-function updateDisplay(e) {
-    const data = getDataSet(e);
-    // console.log("data num", data.num)
-    if (data.num) {
-        const updatedFirstNum = updateFirstNum(data.num)
-        printOnDisplay(updatedFirstNum)
-    }
+
+// UPDATE NUMBER FUNCTIONS
+
+function updateNumber(e) {
+    // console.log(e.target.dataset.num)
+    const updatedFirstNum = updateFirstNum(e.target.dataset.num)
+    updateDisplay(updatedFirstNum)
 }
 
-function getDataSet(e) {
-    let dataSet = e.target.dataset
-    return dataSet;
-}
 
 function updateFirstNum(params) {
     if (firstNum == 0) {
@@ -122,7 +118,7 @@ function operate(a, b, operator) {
 // EVENT LISTERNERS
 
 numKey.forEach(element => {
-    element.addEventListener("click", updateDisplay)
+    element.addEventListener("click", updateNumber)
 })
 
 primaryOperatorBtn.forEach(element => {
@@ -146,7 +142,7 @@ equalsBtn.addEventListener("click", () => {
 
 window.onload = () => {
     console.log("page is fully loaded");
-    printOnDisplay(firstNum)
+    updateDisplay(firstNum)
 };
 
 
