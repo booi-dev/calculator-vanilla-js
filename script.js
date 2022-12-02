@@ -108,7 +108,7 @@ function clearDisplay2() {
     updateOperatorDisplay(operator)
     updateDisplay2(secondNum)
     updateDisplay(firstNum)
-    console.log("2nd num is zero")
+    // console.log("2nd num is zero")
 }
 
 function clear() {
@@ -138,35 +138,39 @@ function clear() {
 // UPDATE NUMBER FUNCTIONS
 
 function updateNumber(e) {
+    let number = e.target.dataset.num;
+    // console.log(`first num: ${firstNum}, Second Num: ${secondNum}, Operator: ${operator}, Result: ${result}`)
     let updatedFirstNum;
     let updatedSecondNum;
 
-    if (operator != "none") {
-        if (secondNum.length >= 9) {
-            console.log("too firstNum", firstNum.length)
-            return;
-        } else {
-            updatedSecondNum = updateSecondNum(e.target.dataset.num)
-            updateDisplay(updatedSecondNum)
-        }
-    } else {
-        if (firstNum.length >= 9) {
-            console.log("too secondNum", secondNum.length)
-            return
-        } else {
-            updatedFirstNum = updateFirstNum(e.target.dataset.num)
-            updateDisplay(updatedFirstNum)
-        }
+    if (result != "0") {
+        firstNum = result;
+        secondNum = number;
+        updateDisplay(number)
+        updateDisplay2(result)
+        updateDisplay3("")
+        result = "0"
     }
+    else if (operator != "none") {
+        updatedSecondNum = updateSecondNum(number)
+        updateDisplay(updatedSecondNum)
+    }
+    else {
+        updatedFirstNum = updateFirstNum(number)
+        updateDisplay(updatedFirstNum)
+    }
+    // console.log(`first num: ${firstNum}, Second Num: ${secondNum}, Operator: ${operator}, Result: ${result}`)
 }
 
 function updateFirstNum(params) {
+    if (firstNum.length >= 9) return firstNum;
     if (firstNum == 0) {
         return firstNum = params;
     } else return firstNum += params;
 }
 
 function updateSecondNum(params) {
+    if (secondNum.length >= 9) return secondNum;
     if (secondNum == 0) {
         return secondNum = params;
     } else return secondNum += params;
@@ -175,31 +179,52 @@ function updateSecondNum(params) {
 // OPERATORS FUNCTIONS
 
 function updateOperator(e) {
-    operator = e.target.dataset.key
-    console.log(`first num: ${firstNum}, Second Num: ${secondNum}, Operator: ${operator}, Result: ${result}`)
 
-    updateDisplay("0")
-    updateDisplay2(firstNum)
-    updateOperatorDisplay(operator)
-    console.log("Lula")
+    console.log(`first num: ${firstNum}, Second Num: ${secondNum}, Operator: ${operator}, Result: ${result}`)
 
     if (result != "0") {
         firstNum = result;
         secondNum = "0";
-        updateDisplay("0")
         updateDisplay2(result)
-        updateDisplay3("")
+
+        // updateDisplay("0")
+        // operator = e.target.dataset.key
+        // updateOperatorDisplay(operator)
+        // updateDisplay3("")
+
         result = "0"
+        console.log("result found")
     } else if (firstNum != "0" && secondNum != "0") {
         updateDisplay3(secondNum)
         operate(firstNum, secondNum, operator)
-        console.log("huplla")
+        updateDisplay2(result)
+
+        // updateDisplay("0")
+        // operator = e.target.dataset.key
+        // updateOperatorDisplay(operator)
+        // updateDisplay3("")
+
+        console.log("first and second")
+    } else {
+        updateDisplay2(firstNum)
+
+        // updateDisplay("0")
+        // operator = e.target.dataset.key
+        // updateOperatorDisplay(operator)
+        // updateDisplay3("")
+        console.log("Lasting")
     }
+
+    updateDisplay("0")
+    operator = e.target.dataset.key
+    updateOperatorDisplay(operator)
+    updateDisplay3("")
+
     console.log(`first num: ${firstNum}, Second Num: ${secondNum}, Operator: ${operator}, Result: ${result}`)
 }
 
 function operate(a, b, operator) {
-    console.log(`first num: ${firstNum}, Second Num: ${secondNum}, Operator: ${operator}, Result: ${result}`)
+    // console.log(`first num: ${firstNum}, Second Num: ${secondNum}, Operator: ${operator}, Result: ${result}`)
     let calculatedResult = 0;
     a = +a;
     b = +b;
@@ -228,7 +253,6 @@ function operate(a, b, operator) {
         result = calculatedResult.toFixed(2);
         updateDisplay(result)
     }
-
 }
 
 //
