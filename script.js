@@ -49,19 +49,25 @@ function negation(data) {
 // UPDATE DISPLAY FUNCTIONS
 
 function updateDisplay(content) {
-    if (content.length > 10) {
-        return
-    }
+    // if (content.length > 10) {
+    //     return
+    // }
+
     if (content.length == 7) {
         display.classList.add("reduceDisplayFontx1")
-        display.classList.remove("reduceDisplayFontx2", "reduceDisplayFontx3")
+        display.classList.remove("reduceDisplayFontx2", "reduceDisplayFontx3", "reduceDisplayFontx4")
     } else if (content.length == 8) {
         display.classList.add("reduceDisplayFontx2")
-        display.classList.remove("reduceDisplayFontx1", "reduceDisplayFontx3")
+        display.classList.remove("reduceDisplayFontx1", "reduceDisplayFontx3", "reduceDisplayFontx4")
     } else if (content.length == 9) {
         display.classList.add("reduceDisplayFontx3")
-        display.classList.remove("reduceDisplayFontx1", "reduceDisplayFontx2")
-    } else display.classList.remove("reduceDisplayFontx1", "reduceDisplayFontx2", "reduceDisplayFontx3")
+        display.classList.remove("reduceDisplayFontx1", "reduceDisplayFontx2", "reduceDisplayFontx4")
+    } else if (content.length >= 10) {
+        display.classList.add("reduceDisplayFontx4")
+        display.classList.remove("reduceDisplayFontx1", "reduceDisplayFontx2", "reduceDisplayFontx3")
+    }
+    else
+        display.classList.remove("reduceDisplayFontx1", "reduceDisplayFontx2", "reduceDisplayFontx3", "reduceDisplayFontx4")
 
     display.innerText = content;
 }
@@ -99,21 +105,16 @@ function allClear() {
     updateDisplay2("")
     updateOperatorDisplay(operator);
     updateDisplay3("")
-    console.log(`first num:- ${firstNum}, Second Num:- ${secondNum}, Operator:- ${operator}, result:- ${result}`)
 }
 
-// Bring back the firstNum to display1
 function clearDisplay2() {
     operator = "none"
     updateOperatorDisplay(operator)
     updateDisplay2(secondNum)
     updateDisplay(firstNum)
-    console.log("clearing dis2")
 }
 
 function clear() {
-
-    console.log(`FIRST: ${firstNum}, SECOND: ${secondNum}, O: ${operator}, R: ${result}`)
 
     if (firstNum == "0") return
 
@@ -121,14 +122,12 @@ function clear() {
         if (firstNum.length == 1) { firstNum = "0"; return; }
         const lastDigitDeletedNum = firstNum.slice(0, -1);
         firstNum = lastDigitDeletedNum;
-        console.log("clear first num")
     }
 
     function clearSecondNum() {
         if (secondNum.length == 1) { secondNum = "0"; return }
         const lastDigitDeletedNum = secondNum.slice(0, -1);
         secondNum = lastDigitDeletedNum;
-        console.log("clear second num")
     }
 
     function clearDisplay() {
@@ -154,13 +153,7 @@ function clear() {
         updateDisplay(secondNum);
     }
 
-    console.log(display.textContent)
-    console.log(display2.textContent)
-    console.log(display3.textContent)
-    console.log(operatorDisplay.textContent)
-
     if (result != "0") {
-        console.log("onetwothree");
         updateDisplay("0");
         updateDisplay2(firstNum);
         updateDisplay3("");
@@ -200,28 +193,31 @@ function updateSecondNum(params) {
 
 function updateNumber(e) {
     let number = e.target.dataset.num;
+    let dot = e.target.dataset.dot;
+    console.log(dot)
     let updatedFirstNum;
     let updatedSecondNum;
 
-    if (display3.textContent) { display3.textContent = "" }
+    if (dot) number = dot;
 
+    if (display3.textContent) { display3.textContent = "" }
 
     if (result != "0") {
         firstNum = result;
         secondNum = "0";
         updatedSecondNum = updateSecondNum(number)
         updateDisplay(updatedSecondNum)
-        console.log("result found while entering num")
+        // console.log("result found while entering num")
     }
     else if (operator != "none") {
         updatedSecondNum = updateSecondNum(number)
         updateDisplay(updatedSecondNum)
-        console.log("operator found")
+        // console.log("operator found")
     }
     else {
         updatedFirstNum = updateFirstNum(number)
         updateDisplay(updatedFirstNum)
-        console.log("update number")
+        // console.log("update number")
     }
     console.log(`first num: ${firstNum}, Second Num: ${secondNum}, Operator: ${operator}, Result: ${result}`)
 }
@@ -279,15 +275,12 @@ function operate(a, b, operator) {
 
     result = calculatedResult.toString();
 
-    console.log(calculatedResult)
-
-    if (calculatedResult.toString().length >= 10) {
-        updateDisplay("BIG NUM")
-    }
+    // console.log(calculatedResult, result)
 
     if (isFloat(calculatedResult)) {
         result = calculatedResult.toFixed(2);
         updateDisplay2(result)
+        console.log(result, "it's float")
     }
 
     console.log(`FIRST: ${firstNum}, SECOND: ${secondNum}, O: ${operator}, R: ${result}`)
@@ -296,9 +289,9 @@ function operate(a, b, operator) {
 // FLOAT CHECKING
 
 function isFloat(n) {
-    return n === +n && n !== (n | 0);
+    return n !== (n | 0);
 }
-isFloat(12);
+// isFloat(12);
 
 // EQUAL FUNCTION
 
@@ -334,9 +327,9 @@ equalsBtn.addEventListener("click", () => {
 // APP INITIALIZATION
 
 window.onload = () => {
-    operatorDisplay.innerText = "NA";
-    updateDisplay("0")
-    updateDisplay2("")
-    updateDisplay3("")
+    // operatorDisplay.innerText = "NA";
+    // updateDisplay("999999999999999999")
+    // // updateDisplay2("")
+    // updateDisplay3("")
 };
 
