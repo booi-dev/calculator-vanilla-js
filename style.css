@@ -4,6 +4,9 @@
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+body {
   background-color: black;
   color: white;
   font-family: "Roboto", sans-serif;
@@ -12,8 +15,7 @@
 .container {
   width: 350px;
   margin: auto;
-  padding: 5rem 0;
-  background-color: black;
+  padding: 6rem 0;
 }
 
 .display2 {
@@ -35,13 +37,13 @@
   margin: 0 4px;
 }
 
-.container-primay-display {
+.container-primary-display {
   display: flex;
   justify-content: right;
   align-items: center;
 }
 
-.container-primay-display .equal-symbol {
+.container-primary-display .equal-symbol {
   margin-right: auto;
   font-size: 1.5rem;
   display: hide;
