@@ -33,8 +33,12 @@ body {
   text-align: center;
 }
 
-.operatorDisplay {
+.container-secondary-display .operator-display {
   margin: 0 4px;
+}
+
+.container-secondary-display .equal-symbol {
+  margin-left: 3px;
 }
 
 .container-primary-display {
@@ -42,12 +46,6 @@ body {
   justify-content: right;
   align-items: center;
 }
-
-/* .container-primary-display .equal-symbol {
-  margin-right: auto;
-  font-size: 1.5rem;
-  display: hide;
-} */
 
 .display {
   display: flex;

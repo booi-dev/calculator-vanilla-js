@@ -1,29 +1,23 @@
 // VALUE DECLARATION
-
 let firstNum = "0";
 let secondNum = "0";
 let result = "0";
 let operator = "none"
 
 // SELECTORS
-
-// const displayContainer = document.querySelector(".container-primay-display");
 const display = document.querySelector(".display");
 const display2 = document.querySelector(".display2");
 const display3 = document.querySelector(".display3");
-const operatorDisplay = document.querySelector(".operatorDisplay");
-
+const operatorDisplay = document.querySelector(".operator-display");
+const equalSymbol = document.querySelector(".equal-symbol");
 const keypad = document.querySelector(".keypad");
 const numKey = keypad.querySelectorAll(".num-key");
-
 const ACBtn = document.querySelector(`.secondary-operators[data-key ="allClear"]`);
 const CBtn = document.querySelector(`.secondary-operators[data-key ="clear"]`);
-
 const primaryOperatorBtn = document.querySelectorAll(`.primary-operators`);
 const equalsBtn = document.querySelector(`.equals-operators`);
 
 // FUNCTIONS
-
 function division(a, b) {
     return a / b;
 }
@@ -49,10 +43,6 @@ function negation(data) {
 // UPDATE DISPLAY FUNCTIONS
 
 function updateDisplay(content) {
-    // if (content.length > 10) {
-    //     return
-    // }
-
     if (content.length == 7) {
         display.classList.add("reduceDisplayFontx1")
         display.classList.remove("reduceDisplayFontx2", "reduceDisplayFontx3", "reduceDisplayFontx4")
@@ -66,9 +56,7 @@ function updateDisplay(content) {
         display.classList.add("reduceDisplayFontx4")
         display.classList.remove("reduceDisplayFontx1", "reduceDisplayFontx2", "reduceDisplayFontx3")
     }
-    else
-        display.classList.remove("reduceDisplayFontx1", "reduceDisplayFontx2", "reduceDisplayFontx3", "reduceDisplayFontx4")
-
+    else display.classList.remove("reduceDisplayFontx1", "reduceDisplayFontx2", "reduceDisplayFontx3", "reduceDisplayFontx4")
     display.innerText = content;
 }
 
@@ -105,6 +93,7 @@ function allClear() {
     updateDisplay2("")
     updateOperatorDisplay(operator);
     updateDisplay3("")
+    equalSymbol.textContent = ""
 }
 
 function clearDisplay2() {
@@ -146,6 +135,7 @@ function clear() {
         updateOperatorDisplay(operator)
         updateDisplay(firstNum);
         updateDisplay2("");
+        updateDisplay3("");
     }
 
     function clearDisplay2() {
@@ -159,17 +149,15 @@ function clear() {
         updateDisplay3("");
         secondNum = "0";
         result = "0";
+        equalSymbol.textContent = "";
     }
 
     else if (display.textContent != "0" && display2.textContent) {
         clearDisplay2()
-        console.log("one");
     } else if (display2.textContent && operatorDisplay.textContent) {
         clearOperatorDisplay();
-        console.log("two");
     } else if (display.textContent) {
         clearDisplay()
-        console.log("three");
     }
 
     console.log(`FIRST: ${firstNum}, SECOND: ${secondNum}, O: ${operator}, R: ${result}`)
@@ -179,45 +167,43 @@ function clear() {
 
 function updateFirstNum(params) {
     if (firstNum.length >= 9) return firstNum;
-    if (firstNum == 0) {
-        return firstNum = params;
-    } else return firstNum += params;
+    if (firstNum == 0) return firstNum = params;
+    else return firstNum += params;
 }
 
 function updateSecondNum(params) {
     if (secondNum.length >= 9) return secondNum;
-    if (secondNum == 0) {
-        return secondNum = params;
-    } else return secondNum += params;
+    if (secondNum == 0) return secondNum = params;
+    else return secondNum += params;
 }
 
 function updateNumber(e) {
     let number = e.target.dataset.num;
-    let dot = e.target.dataset.dot;
-    console.log(dot)
     let updatedFirstNum;
     let updatedSecondNum;
 
-    if (dot) number = dot;
+    console.log(`first num: ${firstNum}, Second Num: ${secondNum}, Operator: ${operator}, Result: ${result}`)
+
+    if (number == "." && firstNum.includes(".")) {
+        console.log("Already has a dot");
+        return;
+    }
 
     if (display3.textContent) { display3.textContent = "" }
-
+    if (equalSymbol.textContent) { equalSymbol.textContent = "" }
     if (result != "0") {
         firstNum = result;
         secondNum = "0";
         updatedSecondNum = updateSecondNum(number)
         updateDisplay(updatedSecondNum)
-        // console.log("result found while entering num")
     }
     else if (operator != "none") {
         updatedSecondNum = updateSecondNum(number)
         updateDisplay(updatedSecondNum)
-        // console.log("operator found")
     }
     else {
         updatedFirstNum = updateFirstNum(number)
         updateDisplay(updatedFirstNum)
-        // console.log("update number")
     }
     console.log(`first num: ${firstNum}, Second Num: ${secondNum}, Operator: ${operator}, Result: ${result}`)
 }
@@ -225,41 +211,30 @@ function updateNumber(e) {
 // OPERATORS FUNCTIONS
 
 function updateOperator(e) {
-
-    // console.log(`first num: ${firstNum}, Second Num: ${secondNum}, Operator: ${operator}, Result: ${result}`)
-
     if (result != "0") {
-
         firstNum = result;
         secondNum = "0";
         updateDisplay2(result)
         result = "0"
-
+        equalSymbol.innerText = ""
         console.log("result found")
     } else if (firstNum != "0" && secondNum != "0") {
         operate(firstNum, secondNum, operator)
-
         firstNum = result;
         updateDisplay2(result)
-        // secondNum = "0";
-        // result = "0"
-
         console.log("first and second")
     } else {
         updateDisplay2(firstNum)
         console.log("Lasting")
     }
-
     updateDisplay("0")
     updateDisplay3("")
     operator = e.target.dataset.key
     updateOperatorDisplay(operator)
-
     console.log(`first num: ${firstNum}, Second Num: ${secondNum}, Operator: ${operator}, Result: ${result}`)
 }
 
 function operate(a, b, operator) {
-    // console.log(`first num: ${firstNum}, Second Num: ${secondNum}, Operator: ${operator}, Result: ${result}`)
     let calculatedResult = 0;
     a = +a;
     b = +b;
@@ -272,26 +247,13 @@ function operate(a, b, operator) {
     } else if (operator === "addition") {
         calculatedResult = addition(a, b)
     }
-
     result = calculatedResult.toString();
-
-    // console.log(calculatedResult, result)
-
-    if (isFloat(calculatedResult)) {
+    if (!Number.isInteger(calculatedResult)) {
+        console.log(calculatedResult, "not integers")
         result = calculatedResult.toFixed(2);
-        updateDisplay2(result)
-        console.log(result, "it's float")
     }
-
     console.log(`FIRST: ${firstNum}, SECOND: ${secondNum}, O: ${operator}, R: ${result}`)
 }
-
-// FLOAT CHECKING
-
-function isFloat(n) {
-    return n !== (n | 0);
-}
-// isFloat(12);
 
 // EQUAL FUNCTION
 
@@ -300,6 +262,7 @@ function equalFunction() {
     updateDisplay(result);
     updateDisplay2(firstNum)
     updateDisplay3(secondNum)
+    equalSymbol.innerText = "="
 }
 
 // EVENT LISTERNERS
@@ -323,13 +286,4 @@ CBtn.addEventListener("click", () => {
 equalsBtn.addEventListener("click", () => {
     equalFunction()
 })
-
-// APP INITIALIZATION
-
-window.onload = () => {
-    // operatorDisplay.innerText = "NA";
-    // updateDisplay("999999999999999999")
-    // // updateDisplay2("")
-    // updateDisplay3("")
-};
 
