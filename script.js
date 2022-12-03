@@ -105,6 +105,8 @@ function clearDisplay2() {
 
 function clear() {
 
+    console.log(`FIRST: ${firstNum}, SECOND: ${secondNum}, Op: ${operator}, R: ${result}`)
+
     if (firstNum == "0") return
 
     function clearFirtNum() {
@@ -130,20 +132,12 @@ function clear() {
         }
     }
 
-    function clearOperatorDisplay() {
-        operator = "none";
-        updateOperatorDisplay(operator)
-        updateDisplay(firstNum);
-        updateDisplay2("");
-        updateDisplay3("");
-    }
-
     function clearDisplay2() {
         clearSecondNum();
         updateDisplay(secondNum);
     }
 
-    if (result != "0") {
+    function clearResult() {
         updateDisplay("0");
         updateDisplay2(firstNum);
         updateDisplay3("");
@@ -152,15 +146,23 @@ function clear() {
         equalSymbol.textContent = "";
     }
 
-    else if (display.textContent != "0" && display2.textContent) {
+    function clearOperatorDisplay() {
+        operator = "none";
+        updateOperatorDisplay(operator)
+        updateDisplay(firstNum);
+        updateDisplay2("");
+        updateDisplay3("");
+    }
+
+    if (result != "0") {
+        clearResult()
+    } else if (display.textContent != "0" && display2.textContent) {
         clearDisplay2()
     } else if (display2.textContent && operatorDisplay.textContent) {
         clearOperatorDisplay();
     } else if (display.textContent) {
         clearDisplay()
     }
-
-    console.log(`FIRST: ${firstNum}, SECOND: ${secondNum}, O: ${operator}, R: ${result}`)
 }
 
 // UPDATE NUMBER FUNCTIONS
@@ -182,20 +184,20 @@ function updateNumber(e) {
     let updatedFirstNum;
     let updatedSecondNum;
 
-    console.log(`first num: ${firstNum}, Second Num: ${secondNum}, Operator: ${operator}, Result: ${result}`)
-
     if (number == "." && firstNum.includes(".")) {
-        console.log("Already has a dot");
         return;
     }
 
     if (display3.textContent) { display3.textContent = "" }
     if (equalSymbol.textContent) { equalSymbol.textContent = "" }
+
     if (result != "0") {
         firstNum = result;
-        secondNum = "0";
+        // secondNum = "0";
         updatedSecondNum = updateSecondNum(number)
         updateDisplay(updatedSecondNum)
+        updateDisplay2(firstNum)
+        result = 0;
     }
     else if (operator != "none") {
         updatedSecondNum = updateSecondNum(number)
@@ -205,7 +207,6 @@ function updateNumber(e) {
         updatedFirstNum = updateFirstNum(number)
         updateDisplay(updatedFirstNum)
     }
-    console.log(`first num: ${firstNum}, Second Num: ${secondNum}, Operator: ${operator}, Result: ${result}`)
 }
 
 // OPERATORS FUNCTIONS
@@ -217,21 +218,18 @@ function updateOperator(e) {
         updateDisplay2(result)
         result = "0"
         equalSymbol.innerText = ""
-        console.log("result found")
     } else if (firstNum != "0" && secondNum != "0") {
         operate(firstNum, secondNum, operator)
         firstNum = result;
         updateDisplay2(result)
-        console.log("first and second")
+        secondNum = "0";
     } else {
         updateDisplay2(firstNum)
-        console.log("Lasting")
     }
     updateDisplay("0")
     updateDisplay3("")
     operator = e.target.dataset.key
     updateOperatorDisplay(operator)
-    console.log(`first num: ${firstNum}, Second Num: ${secondNum}, Operator: ${operator}, Result: ${result}`)
 }
 
 function operate(a, b, operator) {
@@ -248,11 +246,11 @@ function operate(a, b, operator) {
         calculatedResult = addition(a, b)
     }
     result = calculatedResult.toString();
+    // secondNum = "0"
     if (!Number.isInteger(calculatedResult)) {
-        console.log(calculatedResult, "not integers")
         result = calculatedResult.toFixed(2);
     }
-    console.log(`FIRST: ${firstNum}, SECOND: ${secondNum}, O: ${operator}, R: ${result}`)
+    // console.log(`RE: FIRST: ${firstNum}, SECOND: ${secondNum}, Op: ${operator}, R: ${result}`)
 }
 
 // EQUAL FUNCTION
@@ -262,6 +260,7 @@ function equalFunction() {
     updateDisplay(result);
     updateDisplay2(firstNum)
     updateDisplay3(secondNum)
+    secondNum = "0";
     equalSymbol.innerText = "="
 }
 
